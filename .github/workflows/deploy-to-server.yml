@@ -43,8 +43,8 @@ jobs:
                 username: ${{ secrets.USERNAME }}
                 key: ${{ secrets.PRIVATE_KEY }}
                 script: |
-                  echo "DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}" > .env
-                  echo  "DOCKER_TAG=${{ github.sha }}" >> .env
+                  export DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}
+                  export DOCKER_TAG=${{ github.sha }}
                   echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
                   cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
 
